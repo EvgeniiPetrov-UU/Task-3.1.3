@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+<a th:href="@{/admin/createUser}"><button>Add User</button></a>
+
+<div th:unless="${#lists.isEmpty(users)}">
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Password</th>
+            <th scope="col">Authorities</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:utext="${user.getId()}"></td>
+            <td th:utext="${user.getName()}"></td>
+            <td th:utext="${user.getPassword()}"></td>
+            <td th:utext="${user.getRoles()}"></td>
+            <td>
+                <a th:href="@{/admin/{id}(id=${user.getId()})}">
+                    <button>Show</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/admin/updateUser/{id}(id=${user.getId()})}">
+                    <button>Edit</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/admin/deleteUser/{id}(id=${user.getId()})}">
+                    <button>Delete</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a th:href="@{/logout}"><button>Выйти из учетной записи</button></a>
+</body>
+</html>
