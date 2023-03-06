@@ -5,7 +5,7 @@
     <title>Edit existing user</title>
 </head>
 <body>
-<form th:method="PUT" th:action="@{/updateUser}" th:object="${userToUpdate}">
+<form th:method="PUT" th:action="@{/admin}" th:object="${userToUpdate}">
     <input type="hidden" th:field="*{id}">
     <div class="field">
         <label for="name">Name</label>

@@ -8,6 +8,7 @@ import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     private final UserServiceImpl userService;
@@ -18,45 +19,45 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping
     public String showUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "admin";
     }
 
-    @GetMapping("/admin/{id}")
+    @GetMapping("/{id}")
     public String showUserById(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
         return "user";
     }
 
-    @GetMapping("/admin/deleteUser/{id}")
+    @GetMapping("/deleteUser/{id}")
     public String deleteUserById(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/createUser")
+    @GetMapping("/createUser")
     public String getCreateUserForm(User user, Model model) {
         model.addAttribute("newUser", user);
         model.addAttribute("roles", roleService.getAllRoles());
         return "createUser";
     }
 
-    @PostMapping("/createUser")
+    @PostMapping
     public String saveUser(User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/updateUser/{id}")
+    @GetMapping("/updateUser/{id}")
     public String getUpdateUserForm(Model model, @PathVariable("id") Long id) {
         model.addAttribute("userToUpdate", userService.getUserById(id));
         model.addAttribute("roles", roleService.getAllRoles());
         return "editUser";
     }
 
-    @PutMapping("/updateUser")
+    @PutMapping
     public String updateUser(User user) {
         userService.editUser(user);
         return "redirect:/admin";
