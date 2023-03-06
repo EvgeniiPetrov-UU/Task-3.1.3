@@ -35,9 +35,9 @@
                 </a>
             </td>
             <td>
-                <a th:href="@{/admin/deleteUser/{id}(id=${user.getId()})}">
-                    <button>Delete</button>
-                </a>
+                <form th:method="DELETE" th:action="@{/admin/deleteUser/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </form>
             </td>
         </tr>
         </tbody>

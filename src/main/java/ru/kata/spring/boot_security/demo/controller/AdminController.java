@@ -31,7 +31,7 @@ public class AdminController {
         return "user";
     }
 
-    @GetMapping("/deleteUser/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public String deleteUserById(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/admin";
@@ -57,7 +57,7 @@ public class AdminController {
         return "editUser";
     }
 
-    @PutMapping
+    @PatchMapping
     public String updateUser(User user) {
         userService.editUser(user);
         return "redirect:/admin";
