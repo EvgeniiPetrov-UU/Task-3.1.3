@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.1/css/bootstrap.min.css}" rel="stylesheet"
+        integrity="sha512-siwe/oXMhSjGCwLn+scraPOWrJxHlUgMBMZXdPe2Tnk3I0x3ESCoLz7WZ5NTH6SZrywMY+PB1cjyqJ5jAluCOg=="
+        crossorigin="anonymous">
+  <title>Login Page</title>
+</head>
+<body>
+<div class="text-center w-25 mx-auto p-5">
+  <form class="form-signin" method="post" th:action="@{/login}">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">Invalid credentials</div>
+    <div th:if="${param.logout}" class="alert alert-success" role="alert">You have been logged out</div>
+    <p>
+      <input type="text" name="username" class="form-control" placeholder="Email address" required autofocus>
+    </p>
+    <p>
+      <input type="password" name="password" class="form-control" placeholder="Password" required>
+    </p>
+    <input name="_csrf" type="hidden" value="5ce71284-3489-4ccc-bd5f-8769d4ddbb35" />
+    <button class="btn btn-lg w-100 btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+</div>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.1/js/bootstrap.bundle.min.js}"
+        integrity="sha512-1TK4hjCY5+E9H3r5+05bEGbKGyK506WaDPfPe1s/ihwRjr6OtL43zJLzOFQ+/zciONEd+sp7LwrfOCnyukPSsg=="
+        crossorigin="anonymous"></script>
+</body>
+</html>
