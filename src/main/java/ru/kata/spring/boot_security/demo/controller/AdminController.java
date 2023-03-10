@@ -30,23 +30,24 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("newUser") User user) {
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
-
-    @PatchMapping("/updateUser/{id}")
-    public String updateUser(@ModelAttribute("user") User user) {
-        userService.editUser(user);
-        return "redirect:/admin";
-    }
-
-    @DeleteMapping("/deleteUser/{id}")
-    public String deleteUserById(@PathVariable("id") Long id) {
-        userService.deleteUserById(id);
-        return "redirect:/admin";
-    }
+//
+//    @PostMapping("/saveUser")
+//    public String saveUser(@ModelAttribute("newUser") User user) {
+//        userService.saveUser(user);
+//        return "redirect:/admin";
+//    }
+//
+//    @PatchMapping("/updateUser/{id}")
+//    public String updateUser(@ModelAttribute("user") User user) {
+//        userService.editUser(user);
+//        return "redirect:/admin";
+//    }
+//
+//    @DeleteMapping("/deleteUser/{id}")
+//    public String deleteUserById(@PathVariable("id") Long id) {
+//        userService.deleteUserById(id);
+//        return "redirect:/admin";
+//    }
 
 //    @GetMapping
 //    public String showUsers(Model model) {
