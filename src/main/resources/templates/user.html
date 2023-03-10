@@ -53,18 +53,7 @@
                                         <th scope="col">Role</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td th:text="${user.getId()}"></td>
-                                        <td th:text="${user.getFirstName()}"></td>
-                                        <td th:text="${user.getLastName()}"></td>
-                                        <td th:text="${user.getName()}"></td>
-                                        <td>
-                                            <th:block th:each="role : ${user.roles}">
-                                                <span th:utext="${#strings.substringAfter(role.name, 'ROLE_')}"></span>
-                                            </th:block>
-                                        </td>
-                                    </tr>
+                                    <tbody id="data-user">
                                     </tbody>
                                 </table>
                             </div>
@@ -75,6 +64,7 @@
         </div>
     </div>
 </div>
+<script th:src="@{/user.js}"></script>
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.1/js/bootstrap.bundle.min.js}"
         integrity="sha512-1TK4hjCY5+E9H3r5+05bEGbKGyK506WaDPfPe1s/ihwRjr6OtL43zJLzOFQ+/zciONEd+sp7LwrfOCnyukPSsg=="
         crossorigin="anonymous"></script>
