@@ -12,20 +12,18 @@ function createTable() {
                                 <td>${user.id}</td>
                                 <td>${user.firstName}</td>
                                 <td>${user.lastName}</td>
-                                <td>${user.username}</td>
+                                <td>${user.name}</td>
                                 <td>
                                     <span>${user.roles.map(role => role.name.replaceAll("ROLE_", "")).join(' ')}</span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-info" data-bs-target="#modalEdit" data-bs-toggle="modal"
-                                    th:data-bs-target="${'#modalEdit'+user.id}"
-                                    type="button">Edit
+                                    <button class="btn btn-info" data-bs-target="#editModal" data-bs-toggle="modal"
+                                    onclick="editModal(${user.id})" type="button">Edit
                                     </button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger" data-bs-target="#modalDelete" data-bs-toggle="modal"
-                                    th:data-bs-target="${'#modalDelete'+user.id}"
-                                    type="button">Delete
+                                    <button class="btn btn-danger" data-bs-target="#deleteModal" data-bs-toggle="modal"
+                                    onclick="deleteModal(${user.id})" type="button">Delete
                                     </button>
                                 </td>
                             </tr>
@@ -57,7 +55,7 @@ addUserForm.addEventListener('submit', (e) => {
     let lastNameValue = document.getElementById('newUserLastName').value;
     let emailValue = document.getElementById('newUserEmail').value;
     let passwordValue = document.getElementById('newUserPassword').value;
-    let rolesValue = getRoles(Array.from(document.getElementById("newUserRoles").selectedOptions)
+    let rolesValue = getRoles(Array.from(document.getElementById('newUserRoles').selectedOptions)
         .map(role => role.value));
 
     fetch(requestUrlPrefix + '/saveUser', {
@@ -78,7 +76,6 @@ addUserForm.addEventListener('submit', (e) => {
             const usersArr = [];
             usersArr.push(user);
             createTable(usersArr);
-            // $('#usersTableBody').insertRow(user);
         })
         .then(() => {
             document.getElementById("users-table-tab").click();
@@ -89,7 +86,40 @@ addUserForm.addEventListener('submit', (e) => {
     document.getElementById('newUserPassword').value = '';
 })
 
+function deleteModal(id) {
+    fetch(requestUrlPrefix + '/' + id, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
+    }).then(res => {
+        res.json()
+            .then(user => {
+                document.getElementById('idDeleteUser').value = user.id;
+                document.getElementById('deleteUserFirstName').value = user.firstName;
+                document.getElementById('deleteUserLastName').value = user.lastName;
+                document.getElementById('deleteUserEmail').value = user.name;
+                document.getElementById('deleteUserRoles').value = user.roles.map(r => r.name).join(" ");
+                new bootstrap.Modal(document.getElementById('#deleteModal')).show();
+            })
+    })
+}
 
+async function deleteUser() {
+    await fetch(requestUrlPrefix + '/deleteUser/' + document.getElementById('idDeleteUser').value, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(document.getElementById('idDeleteUser').value)
+    })
+        .then(() => {
+            // document.getElementById("nav-admin-tab").click();
+            createTable();
+            document.getElementById("closeDeleteModal").click();
+        })
+}
 
 // const renderEditModalFormContent = (user) => {
 //     document.getElementById('editForm').innerHTML = `

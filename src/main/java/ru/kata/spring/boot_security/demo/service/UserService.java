@@ -1,10 +1,9 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -12,6 +11,6 @@ public interface UserService {
     void deleteUserById(Long id);
     void editUser(User user);
     List<User> getAllUsers();
-    User getUserById(Long id);
+    Optional<User> getUserById(Long id);
     User getUserByName(String name);
 }

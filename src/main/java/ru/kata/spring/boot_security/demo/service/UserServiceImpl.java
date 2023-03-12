@@ -12,6 +12,7 @@ import ru.kata.spring.boot_security.demo.dao.UserDAO;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -50,8 +51,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userDAO.getById(id);
+    public Optional<User> getUserById(Long id) {
+        return userDAO.findById(id);
     }
 
     @Override

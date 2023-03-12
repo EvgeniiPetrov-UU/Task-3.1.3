@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <!--модальное окно редактировать юзера-->
-                    <div class="modal fade" th:id="${'editModal'}">
+                    <div class="modal fade" id='#editModal'>
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -99,7 +99,55 @@
                                 </div>
                                 <div class="modal-body text-center">
                                     <form id="editForm">
-                                        <!-- Fills with JS -->
+                                        <p>
+                                            <label for="idEdit">
+                                                <strong>ID</strong>
+                                                <input class="form-control" disabled
+                                                       id="idEdit"
+                                                       type="number">
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label for="editUserFirstName">
+                                                <strong>First name</strong>
+                                                <input class="form-control" id="editUserFirstName"
+                                                       placeholder="First name" required
+                                                       type="text">
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label for="editUserLastName">
+                                                <strong>Last name</strong>
+                                                <input class="form-control" id="editUserLastName"
+                                                       placeholder="Last name" required
+                                                       type="text">
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label for="editUserEmail">
+                                                <strong>Email</strong>
+                                                <input class="form-control" id="editUserEmail" placeholder="Email"
+                                                       required
+                                                       type="email">
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label for="editUserPassword">
+                                                <strong>Password</strong>
+                                                <input class="form-control" id="editUserPassword" placeholder="Password"
+                                                       required
+                                                       type="password">
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label for="editUserRoles">
+                                                <strong>Role</strong>
+                                                <select class="form-select" id="editUserRoles" multiple name="roles" size="2">
+                                                    <option id="optionAdmin">ADMIN</option>
+                                                    <option id="optionUser">USER</option>
+                                                </select>
+                                            </label>
+                                        </p>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -114,7 +162,7 @@
                         </div>
                     </div>
                     <!--модальное окно удалить юзера-->
-                    <div class="modal fade" th:id="${'#deleteModal'}">
+                    <div class="modal fade" id='#deleteModal'>
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -122,19 +170,49 @@
                                     <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <form id="deleteModalContent">
-                                        <!-- Fills with JS -->
-                                    </form>
+                                    <p>
+                                        <label for="idDeleteUser">
+                                            <strong>ID</strong>
+                                            <input class="form-control" disabled id="idDeleteUser" type="number">
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label for="deleteUserFirstName">
+                                            <strong>First name</strong>
+                                            <input class="form-control" disabled id="deleteUserFirstName" type="text">
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label for="deleteUserLastName">
+                                            <strong>Last name</strong>
+                                            <input class="form-control" disabled id="deleteUserLastName" type="text">
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label for="deleteUserEmail">
+                                            <strong>Email</strong>
+                                            <input class="form-control" disabled id="deleteUserEmail" type="email">
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label for="deleteUserRoles">
+                                            <strong>Role</strong>
+                                            <input readonly type="text"
+                                                   class="form-control"
+                                                   id="deleteUserRoles">
+                                        </label>
+                                    </p>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" data-bs-dismiss="modal"
-                                            id="deleteFormCloseButton"
+                                            id="closeDeleteModal"
                                             type="button">Close
                                     </button>
-                                    <form id="deleteForm">
-                                        <input class="btn btn-danger" type="submit"
-                                               value="Delete"/>
-                                    </form>
+                                    <button type="submit"
+                                            class="btn btn-danger"
+                                            id="deleteButton"
+                                            onclick="deleteUser()">Delete
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -214,6 +292,12 @@
 </div>
 <script th:src="@{/user.js}"></script>
 <script th:src="@{/admin.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.4.slim.min.js}"
+        integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw="
+        crossorigin="anonymous"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js}"
+        integrity="sha512-6UofPqm0QupIL0kzS/UIzekR73/luZdC6i/kXDbWnLOJoqwklBK6519iUnShaYceJ0y4FaiPtX/hRnV/X/xlUQ=="
+        crossorigin="anonymous"></script>
 <script crossorigin="anonymous"
         integrity="sha512-1TK4hjCY5+E9H3r5+05bEGbKGyK506WaDPfPe1s/ihwRjr6OtL43zJLzOFQ+/zciONEd+sp7LwrfOCnyukPSsg=="
         th:src="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.1/js/bootstrap.bundle.min.js}"></script>
