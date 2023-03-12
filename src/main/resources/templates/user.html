@@ -11,13 +11,14 @@
 </head>
 <body>
 <header class="d-flex flex-wrap justify-content-between align-items-stretch text-white py-2 bg-dark">
-    <div class="fs-3 ps-4 me-1 d-inline-block">
-        <span class="fw-bolder" th:text="${user.getName()}"></span>
-        <span> with roles: </span>
-        <th:block th:each="role : ${user.roles}">
-            <span th:utext="${#strings.substringAfter(role.name, 'ROLE_')}"></span>
-        </th:block>
-    </div>
+    <nav>
+        <div class="fs-3 ps-4 me-1 d-inline-block">
+            <!--Юзер с ролью-->
+            <div class="navbar-nav">
+                <span class="navbar-brand" id="user-info"></span>
+            </div>
+        </div>
+    </nav>
     <div>
         <button form="logout" class="fs-5 pe-4 btn btn-dark text-white-50" type="submit">Logout</button>
         <form id="logout" th:method="POST" th:action="@{/logout}"></form>
