@@ -32,13 +32,14 @@
         <div class="col-md-2 g-0 py-3">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a aria-controls="admin-panel" aria-selected="true" class="nav-link active" data-bs-target="#admin-panel"
-                       data-bs-toggle="tab" href="#" id="admin-nav-link" role="tab"
-                       type="button">Admin</a>
+                    <a aria-controls="admin-panel" aria-selected="true" class="nav-link active"
+                       data-bs-target="#admin-panel" data-bs-toggle="tab" href="#" id="admin-nav-link"
+                       role="tab" type="button">Admin</a>
                 </li>
                 <li class="nav-item">
-                    <a aria-controls="user-panel" aria-selected="false" class="nav-link" data-bs-target="#user-panel" data-bs-toggle="tab"
-                       href="#" id="user-nav-link" role="tab" type="button">User</a>
+                    <a aria-controls="user-panel" aria-selected="false" class="nav-link"
+                       data-bs-target="#user-panel" data-bs-toggle="tab" href="#" id="user-nav-link"
+                       role="tab" type="button">User</a>
                 </li>
             </ul>
         </div>
@@ -52,13 +53,15 @@
                 <!-- список вкладок таблиц-->
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a aria-controls="users-table-pane" aria-selected="true" class="nav-link active" data-bs-target="#users-table-pane"
-                           data-bs-toggle="tab" href="#" id="users-table-tab" role="tab"
+                        <a aria-controls="users-table-pane" aria-selected="true" class="nav-link active"
+                           data-bs-target="#users-table-pane" data-bs-toggle="tab" href="#" id="users-table-tab"
+                           role="tab"
                            type="button">Users Table</a>
                     </li>
                     <li class="nav-item">
-                        <a aria-controls="new-users-pane" aria-selected="false" class="nav-link" data-bs-target="#new-users-pane"
-                           data-bs-toggle="tab" href="#" id="new-users-tab" role="tab"
+                        <a aria-controls="new-users-pane" aria-selected="false" class="nav-link"
+                           data-bs-target="#new-users-pane" data-bs-toggle="tab" href="#" id="new-users-tab"
+                           role="tab"
                            type="button">New User</a>
                     </li>
                 </ul>
@@ -143,88 +146,38 @@
                             <h5 class="card-header">Add new user</h5>
                             <div class="form-justify-content-center mx-auto col-4">
                                 <div class="card-body text-center">
-                                    <form id="createUserForm">
+                                    <form id="add-user-form">
                                         <div class="text-center col-12 offset-3 col-md-6 offset-md-3">
                                             <label class="container-fluid" for="newUserFirstName">
                                                 <strong>First name</strong>
                                                 <input type="text" id="newUserFirstName" class="form-control"
                                                        placeholder="First name">
                                             </label>
-
                                             <label class="container-fluid" for="newUserLastName">
                                                 <strong>Last name</strong>
                                                 <input type="text" id="newUserLastName" class="form-control"
                                                        placeholder="Last name">
                                             </label>
-
                                             <label class="container-fluid" for="newUserEmail">
                                                 <strong>Email</strong>
                                                 <input id="newUserEmail" class="form-control" placeholder="Email">
                                             </label>
-
                                             <label class="container-fluid" for="newUserPassword">
                                                 <strong>Password</strong>
                                                 <input type="password" id="newUserPassword" class="form-control"
                                                        placeholder="Password">
                                             </label>
-
                                             <label class="container-fluid">
                                                 <strong>Role</strong>
-                                                <select size="2" multiple required class="form-select">
-                                                    <option id="newRoleAdmin">ADMIN</option>
-                                                    <option id="newRoleUser" selected>USER</option>
+                                                <select id="newUserRoles" size="2" multiple required
+                                                        class="form-control">
+                                                    <option value="ADMIN">ADMIN</option>
+                                                    <option value="USER" selected>USER</option>
                                                 </select>
                                             </label>
-
                                             <input type="submit" class="btn btn-success" value="Add new user">
                                         </div>
                                     </form>
-<!--                                    <form id="createUserForm">-->
-<!--                                        <p>-->
-<!--                                            <label class="container-fluid" for="newUserFirstName">-->
-<!--                                                <strong>First name</strong>-->
-<!--                                                <input class="form-control" id="newUserFirstName" name="firstName"-->
-<!--                                                       placeholder="First name" required-->
-<!--                                                       th:field="${newUser.firstName}" type="text">-->
-<!--                                            </label>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <label class="container-fluid" for="newUserLastName">-->
-<!--                                                <strong>Last name</strong>-->
-<!--                                                <input class="form-control" id="newUserLastName" name="lastName"-->
-<!--                                                       placeholder="Last name" required-->
-<!--                                                       th:field="${newUser.lastName}" type="text">-->
-<!--                                            </label>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <label class="container-fluid" for="newUserEmail">-->
-<!--                                                <strong>Email</strong>-->
-<!--                                                <input class="form-control" id="newUserEmail" name="Email"-->
-<!--                                                       placeholder="Email" required-->
-<!--                                                       th:field="${newUser.name}" type="email">-->
-<!--                                            </label>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <label class="container-fluid" for="newUserPassword">-->
-<!--                                                <strong>Password</strong>-->
-<!--                                                <input class="form-control" id="newUserPassword" name="password"-->
-<!--                                                       placeholder="Password" required-->
-<!--                                                       th:field="${newUser.password}" type="password">-->
-<!--                                            </label>-->
-<!--                                        </p>-->
-<!--                                        <label class="container-fluid" for="newUserRoles">-->
-<!--                                            <strong>Role</strong>-->
-<!--                                            <select class="form-select" id="newUserRoles" multiple-->
-<!--                                                    name="roles" size="2">-->
-<!--                                                <option th:each="role: ${roles}" th:value="${role.getId()}">-->
-<!--                                                    <th:block th:text="${role.getName()}">-->
-<!--                                                    </th:block>-->
-<!--                                                </option>-->
-<!--                                            </select>-->
-<!--                                        </label>-->
-<!--                                        <button class="btn btn-success" id="newUserButton" type="submit">Add new user-->
-<!--                                        </button>-->
-<!--                                    </form>-->
                                 </div>
                             </div>
                         </div>
