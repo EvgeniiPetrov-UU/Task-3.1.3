@@ -12,9 +12,9 @@
 </head>
 <body>
 <header class="d-flex flex-wrap justify-content-between align-items-stretch text-white py-2 bg-dark">
+<!--User info-->
     <nav>
         <div class="fs-3 ps-4 me-1 d-inline-block">
-            <!--Юзер с ролью-->
             <div class="navbar-nav">
                 <span class="navbar-brand" id="user-info"></span>
             </div>
@@ -25,10 +25,10 @@
         <form id="logout" th:action="@{/logout}" th:method="POST"></form>
     </div>
 </header>
-<!--основной контейнер-->
+<!--Main-->
 <div class="container-fluid h-100">
     <div class="row h-100">
-        <!--контейнер для боковой панели Юзер Админ-->
+        <!--Left side panel-->
         <div class="col-md-2 g-0 py-3">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
@@ -43,14 +43,14 @@
                 </li>
             </ul>
         </div>
-        <!--контейнер для содержимого кнопок боковой панели-->
+        <!--Left side panel functional-->
         <div class="col-md-10 bg-light gx-5 py-3 tab-content">
-            <!--контейнер для для правой части экрана-->
+            <!--Container for right side-->
             <div aria-labelledby="admin-nav-link" class="tab-pane fade show active" id="admin-panel"
                  role="tabpanel"
                  tabindex="0">
                 <h2>Admin panel</h2>
-                <!-- список вкладок таблиц-->
+                <!--Tabs-->
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a aria-controls="users-table-pane" aria-selected="true" class="nav-link active"
@@ -65,9 +65,9 @@
                            type="button">New User</a>
                     </li>
                 </ul>
-                <!--контейнер для содержимого вкладок таблиц-->
+                <!--Functional for tabs-->
                 <div class="tab-content" role="tabpanel">
-                    <!--содержимое вкладки Users Table-->
+                    <!--Users Table-->
                     <div aria-labelledby="users-table-tab" class="tab-pane fade show active" id="users-table-pane"
                          role="tabpanel" tabindex="0">
                         <div class="card rounded-0">
@@ -89,7 +89,7 @@
                             </table>
                         </div>
                     </div>
-                    <!--модальное окно редактировать юзера-->
+                    <!--Edit modal-->
                     <div class="modal fade" id='#editModal'>
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -98,70 +98,62 @@
                                     <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <form id="editForm">
+                                    <form id="edit-user-form">
                                         <p>
                                             <label for="idEdit">
                                                 <strong>ID</strong>
-                                                <input class="form-control" disabled
-                                                       id="idEdit"
-                                                       type="number">
+                                                <input class="form-control" disabled id="idEdit" type="number">
                                             </label>
                                         </p>
                                         <p>
                                             <label for="editUserFirstName">
                                                 <strong>First name</strong>
                                                 <input class="form-control" id="editUserFirstName"
-                                                       placeholder="First name" required
-                                                       type="text">
+                                                       placeholder="First name" required type="text">
                                             </label>
                                         </p>
                                         <p>
-                                            <label for="editUserLastName">
+                                            <label for="editUserFirstName">
                                                 <strong>Last name</strong>
                                                 <input class="form-control" id="editUserLastName"
-                                                       placeholder="Last name" required
-                                                       type="text">
+                                                       placeholder="Last name" required type="text">
                                             </label>
                                         </p>
                                         <p>
                                             <label for="editUserEmail">
                                                 <strong>Email</strong>
                                                 <input class="form-control" id="editUserEmail" placeholder="Email"
-                                                       required
-                                                       type="email">
+                                                       required type="email">
                                             </label>
                                         </p>
                                         <p>
                                             <label for="editUserPassword">
                                                 <strong>Password</strong>
                                                 <input class="form-control" id="editUserPassword" placeholder="Password"
-                                                       required
-                                                       type="password">
+                                                       required type="password">
                                             </label>
                                         </p>
                                         <p>
                                             <label for="editUserRoles">
                                                 <strong>Role</strong>
-                                                <select class="form-select" id="editUserRoles" multiple name="roles" size="2">
+                                                <select class="form-select" id="editUserRoles" multiple name="roles" size="2" required>
                                                     <option id="optionAdmin">ADMIN</option>
-                                                    <option id="optionUser">USER</option>
+                                                    <option id="optionUser" selected>USER</option>
                                                 </select>
                                             </label>
                                         </p>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" data-bs-dismiss="modal"
-                                            id="editFormCloseButton"
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal" id="closeEditModal"
                                             type="button">Close
                                     </button>
-                                    <button class="btn btn-primary" form="editForm" type="submit">Edit
-                                    </button>
+                                    <button class="btn btn-primary" form="edit-user-form" type="submit">Edit</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--модальное окно удалить юзера-->
+                    <!--Delete modal-->
                     <div class="modal fade" id='#deleteModal'>
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -197,27 +189,20 @@
                                     <p>
                                         <label for="deleteUserRoles">
                                             <strong>Role</strong>
-                                            <input readonly type="text"
-                                                   class="form-control"
-                                                   id="deleteUserRoles">
+                                            <input readonly type="text" class="form-control" id="deleteUserRoles">
                                         </label>
                                     </p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" data-bs-dismiss="modal"
-                                            id="closeDeleteModal"
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal" id="closeDeleteModal"
                                             type="button">Close
                                     </button>
-                                    <button type="submit"
-                                            class="btn btn-danger"
-                                            id="deleteButton"
-                                            onclick="deleteUser()">Delete
-                                    </button>
+                                    <button type="submit" class="btn btn-danger" onclick="deleteUser()">Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--содержимое вкладки New User-->
+                    <!--New User-->
                     <div aria-labelledby="new-users-tab" class="tab-pane fade" id="new-users-pane" role="tabpanel"
                          tabindex="0">
                         <div class="card rounded-0">
@@ -262,7 +247,7 @@
                     </div>
                 </div>
             </div>
-            <!--контейнер для содержимого на кнопке User на боковой панели-->
+            <!--User info tab-->
             <div aria-labelledby="user-nav-link" class="tab-pane fane" id="user-panel"
                  role="tabpanel" tabindex="0">
                 <h2>User</h2>

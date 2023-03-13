@@ -9,7 +9,6 @@ import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin")

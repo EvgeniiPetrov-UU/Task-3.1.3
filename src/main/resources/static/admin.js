@@ -1,5 +1,7 @@
 const requestUrlPrefix = 'api/admin';
 
+// All users
+
 function createTable() {
     fetch(requestUrlPrefix + '/users')
         .then(res => {res.json()
@@ -35,6 +37,8 @@ function createTable() {
 }
 
 createTable()
+
+// Add user
 
 const addUserForm = document.getElementById("add-user-form")
 
@@ -72,12 +76,8 @@ addUserForm.addEventListener('submit', (e) => {
             roles: rolesValue,
         })
     })
-        .then(user => {
-            const usersArr = [];
-            usersArr.push(user);
-            createTable(usersArr);
-        })
         .then(() => {
+            createTable();
             document.getElementById("users-table-tab").click();
         })
     document.getElementById('newUserFirstName').value = '';
@@ -85,6 +85,8 @@ addUserForm.addEventListener('submit', (e) => {
     document.getElementById('newUserEmail').value = '';
     document.getElementById('newUserPassword').value = '';
 })
+
+// Show and fill delete modal
 
 function deleteModal(id) {
     fetch(requestUrlPrefix + '/' + id, {
@@ -105,6 +107,8 @@ function deleteModal(id) {
     })
 }
 
+// Delete user
+
 async function deleteUser() {
     await fetch(requestUrlPrefix + '/deleteUser/' + document.getElementById('idDeleteUser').value, {
         method: 'DELETE',
@@ -115,166 +119,60 @@ async function deleteUser() {
         body: JSON.stringify(document.getElementById('idDeleteUser').value)
     })
         .then(() => {
-            // document.getElementById("nav-admin-tab").click();
             createTable();
             document.getElementById("closeDeleteModal").click();
         })
 }
 
-// const renderEditModalFormContent = (user) => {
-//     document.getElementById('editForm').innerHTML = `
-//         <label for="idEdit">ID
-//             <input class="form-control" disabled
-//             id="idEdit" th:name="id"
-//             th:type="number" th:value="${user.id}">
-//         </label>
-//         <label for="editUserFirstName">First name
-//             <input class="form-control" id="editUserFirstName"
-//             placeholder="First name" required
-//             th:name="firstName"
-//             th:type="text" th:value="${user.firstName}">
-//         </label>
-//         <label for="editUserLastName">Last name
-//             <input class="form-control" id="editUserLastName"
-//             placeholder="Last name" required
-//             th:name="lastName"
-//             th:type="text" th:value="${user.lastName}">
-//         </label>
-//         <label for="editUserEmail">Email
-//             <input class="form-control" id="editUserEmail" placeholder="Email"
-//             required th:name="name"
-//             th:type="email" th:value="${user.name}">
-//         </label>
-//         <label for="editUserPassword">Password
-//             <input class="form-control" id="editUserPassword" placeholder="Password" required
-//             th:name="password"
-//             th:type="password" th:value="${user.password}">
-//         </label>
-//         <label class="container-fluid col-6" for="editUserRoles">Role
-//             <select class="form-select" id="editUserRoles" multiple name="roles" size="2">
-//                 <option id="optionAdmin">ADMIN</option>
-//                 <option id="optionUser">USER</option>
-//             </select>
-//         </label>
-//     `;
-//     user.roles.forEach(role => {
-//         if (role.id === 1) document.getElementById('optionUser').selected = true;
-//         if (role.id === 2) document.getElementById('optionAdmin').selected = true;
-//     });
-// };
-//
-// const renderDeleteModalContent = (user) => {
-//     let content = `
-//         <label for="idDeleteUser">
-//             <strong>ID</strong>
-//                 <input class="form-control" disabled
-//                 id="idDeleteUser" th:name="id"
-//                 th:type="number"
-//                 th:value="${user.id}">
-//         </label>
-//         <label for="deleteUserFirstName">
-//             <strong>First name</strong>
-//                 <input class="form-control" disabled
-//                     th:name="firstName"
-//                     th:type="text"
-//                     th:value="${user.firstName}">
-//         </label>
-//         <label for="deleteUserLastName">
-//             <strong>Last name</strong>
-//                 <input class="form-control" disabled
-//                 id="deleteUserLastName"
-//                 th:name="lastName"
-//                 th:type="text"
-//                 th:value="${user.lastName}">
-//         </label>
-//         <label for="deleteUserEmail">
-//             <strong>Email</strong>
-//                 <input class="form-control" disabled
-//                 id="deleteUserEmail"
-//                 th:name="name"
-//                 th:type="email"
-//                 th:value="${user.name}">
-//         </label>
-//         <label class="container-fluid col-6" for="deleteUserRoles">
-//             <strong>Role</strong>
-//                 <select class="form-select" disabled id="deleteUserRoles" multiple name="roles" size="2">
-//     `;
-//     user.roles.forEach(role => {
-//         const authority = role.name;
-//         content += `
-//             <option label="${authority.substring(authority.lastIndexOf('_') + 1)}"></option>
-//         `;
-//     });
-//     content += `
-//         </select>
-//         </label>
-//     `;
-//     document.getElementById('deleteModalContent').innerHTML = content;
-// };
-//
-// //Show the Edit modal window
-// document.getElementById('editModal').addEventListener('show.bs.modal', (event) => {
-//     const userId = event.relatedTarget.getAttribute('data-bs-userId');
-//     // Fill the form of Edit modal with user data
-//     sendRequest('GET', '/admin/' + userId).then(user => renderEditModalFormContent(user));
-// });
-//
-// //Update the user in the DB and update the corresponding row of the "All Users" table after button EDIT pressed in Edit modal
-// document.getElementById('editForm').addEventListener('submit', (event) => {
-//     event.preventDefault();
-//     const userRolesEdited = [];
-//     if (document.getElementById('optionUser').selected) userRolesEdited.push({id: 1, authority: 'ROLE_USER'});
-//     if (document.getElementById('optionAdmin').selected) userRolesEdited.push({id: 2, authority: 'ROLE_ADMIN'});
-//     const userEdited = {
-//         id: document.getElementById('idEdit').value,
-//         firstName: document.getElementById('firstNameEdit').value,
-//         lastName: document.getElementById('lastNameEdit').value,
-//         age: document.getElementById('ageEdit').value,
-//         username: document.getElementById('usernameEdit').value,
-//         password: document.getElementById('passwordEdit').value,
-//         roles: userRolesEdited
-//     };
-//     sendRequest('PUT', '/admin', userEdited).then(user => {
-//         if (user) allUsersTableRowUpdate(user)
-//     });
-//     document.getElementById('buttonCloseModal').click();
-// });
-//
-// //Show the Delete modal window
-// document.getElementById('deleteModal').addEventListener('show.bs.modal', (event) => {
-//     const userId = event.relatedTarget.getAttribute('data-bs-userId');
-//     // Fill the content of Delete modal with user data
-//     sendRequest('GET', '/admin/' + userId).then(user => renderDeleteModalContent(user));
-// });
-//
-// //Delete the user from the DB and delete the corresponding row of the "All Users" table after button DELETE pressed in Delete modal
-// document.getElementById('deleteForm').addEventListener('submit', (event) => {
-//     event.preventDefault();
-//     sendRequest('DELETE', '/admin/' + document.getElementById('deleteUserId').value).then(id => allUsersTableRowDelete(id));
-// });
+// Show and fill edit modal
 
-// function sendRequest(method, url, body = null) {
-//     const options = {
-//         method: method,
-//         body: JSON.stringify(body),
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     };
-//
-//     return fetch(requestUrlPrefix + url, method === 'GET' ? null : options).then(response => {
-//         if (!response.ok) {
-//             response.status === 409 ? showAlert('Data not saved!\nUser with this email already exists in the database!') :
-//                 showAlert('Something went wrong')
-//             throw new Error('Server response: ' + response.status);
-//         }
-//         return response.json();
-//     });
-// }
-//
-// function showAlert(message) {
-//     const alert = document.createElement('div');
-//     alert.className = 'alert alert-danger alert-dismissible role="alert" fade show';
-//     alert.innerHTML = `<div class="fs-5">${message}</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
-//     messages.appendChild(alert);
-// }
+const editUserForm = document.getElementById("edit-user-form")
+
+async function editModal(id) {
+    fetch(requestUrlPrefix + '/' + id)
+        .then(res => {
+            res.json()
+                .then(async user => {
+                    console.log(user);
+                    document.getElementById('idEdit').value = user.id;
+                    document.getElementById('editUserFirstName').value = user.firstName;
+                    document.getElementById('editUserFirstName').value = user.lastName;
+                    document.getElementById('editUserEmail').value = user.name;
+                    document.getElementById('editUserPassword').value = user.password;
+                    new bootstrap.Modal(document.getElementById('#editModal')).show();
+                })
+        })
+}
+
+// Edit user
+
+editUserForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let idValue = document.getElementById("idEdit").value;
+    let firstNameValue = document.getElementById('editUserFirstName').value;
+    let lastNameValue = document.getElementById('editUserFirstName').value;
+    let emailValue = document.getElementById('editUserEmail').value;
+    let passwordValue = document.getElementById('editUserPassword').value;
+    let rolesValue = getRoles(Array.from(document.getElementById('editUserRoles').selectedOptions)
+        .map(role => role.value));
+
+    await fetch(requestUrlPrefix + '/updateUser/' + idValue, {
+        method: "PATCH",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+            id: idValue,
+            firstName: firstNameValue,
+            lastName: lastNameValue,
+            name: emailValue,
+            password: passwordValue,
+            roles: rolesValue,
+        })
+    })
+        .then(() => {
+            createTable();
+            document.getElementById("closeEditModal").click();
+        })
+})
