@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apiUser")
 public class UserRestController {
 
     private final UserServiceImpl userService;

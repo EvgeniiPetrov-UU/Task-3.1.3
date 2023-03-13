@@ -1,6 +1,6 @@
 const data = document.getElementById("data-user");
 const panel = document.getElementById("user-info");
-const url = 'api/user';
+const url = 'apiUser/user';
 
 fetch(url)
     .then(res => res.json())
